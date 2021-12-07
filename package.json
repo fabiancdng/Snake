@@ -1,0 +1,27 @@
+{
+    "name": "snake",
+    "version": "0.0.0",
+    "description": "Snake built with TypeScript by @fabiancdng",
+    "main": "app.ts",
+    "scripts": {
+        "start": "tsc && serve",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fabiancdng/Snake.git"
+    },
+    "keywords": [
+        "snake",
+        "game"
+    ],
+    "author": "Fabian Reinders @fabiancdng",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/fabiancdng/Snake/issues"
+    },
+    "homepage": "https://github.com/fabiancdng/Snake#readme",
+    "dependencies": {
+        "commonjs": "^0.0.1"
+    }
+}
