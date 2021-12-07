@@ -25,10 +25,9 @@ class Game {
     public columns: number;
 
     /**
-     * Position of each part of snake in the game / on the
-     * canvas.
+     * The active instance of the `Snake` object.
      */
-    public snake: Array<Position>;
+    public snake: Snake;
 
     /**
      * Position of the piece of food in the game / on the
@@ -47,9 +46,9 @@ class Game {
     public cellHeight: number;
 
     /**
-     * Direction the snake is heading in.
+     * The active instance of the `KeyListener` object.
      */
-    public direction: Direction;
+    public keyListener: KeyListener;
 
     /**
      * Constructor to create a new instance of the game.
@@ -63,8 +62,10 @@ class Game {
         this.canvas.width = 600;
         this.canvas.height = 600;
 
-        // Set initial positions of snake and food.
-        this.snake = [{ x: 7, y: 3 }];
+        // Create a new instance of a snake.
+        this.snake = new Snake();
+
+        // Set initial positions of the food.
         this.food = { x: 5, y: 5 };
 
         // Organize canvas as a "grid".
@@ -72,9 +73,9 @@ class Game {
         this.columns = 20;
         this.cellWidth = this.canvas.width / this.columns;
         this.cellHeight = this.canvas.height / this.rows;
-        
-        // Set initial direction of the snake.
-        this.direction = Direction.LEFT;
+
+        // Initialize KeyListener and pass snake (so it can control the snake).
+        this.keyListener = new KeyListener(this.snake);
     };
 
     /**
@@ -91,7 +92,7 @@ class Game {
 
         // Draw each part of the snake in a white color.
         this.ctx.fillStyle = 'white';
-        this.snake.forEach(snakePart => {
+        this.snake.parts.forEach(snakePart => {
             this.ctx.fillRect(
                 snakePart.x * this.cellWidth,
                 snakePart.y * this.cellHeight,
@@ -117,6 +118,6 @@ class Game {
      * Method representing the game loop.
      */
     public loop = () => {
-        this.snake[0].x --;
+        this.snake.parts[0].x --;
     };
 };
