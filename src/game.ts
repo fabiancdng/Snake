@@ -64,7 +64,7 @@ class Game {
         this.canvas.height = 600;
 
         // Set initial positions of snake and food.
-        this.snake = [{ x: 2, y: 3 }];
+        this.snake = [{ x: 7, y: 3 }];
         this.food = { x: 5, y: 5 };
 
         // Organize canvas as a "grid".
@@ -80,7 +80,7 @@ class Game {
     /**
      * Draw the current state of game (using HTML5 canvas).
      */
-    public draw() {
+    public draw = () => {
         // The canvas element's width and height.
         var width = this.canvas.width;
         var height = this.canvas.height;
@@ -93,8 +93,8 @@ class Game {
         this.ctx.fillStyle = 'white';
         this.snake.forEach(snakePart => {
             this.ctx.fillRect(
-                snakePart.x,
-                snakePart.y,
+                snakePart.x * this.cellWidth,
+                snakePart.y * this.cellHeight,
                 this.cellWidth,
                 this.cellHeight
             );
@@ -113,7 +113,7 @@ class Game {
     /**
      * Method representing the game loop.
      */
-    public loop() {
-
+    public loop = () => {
+        this.snake[0].x --;
     };
 };
