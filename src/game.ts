@@ -25,13 +25,13 @@ class Game {
     public columns: number;
 
     /**
-     * Position of the snake in the game / on the
+     * Position of each part of snake in the game / on the
      * canvas.
      */
-    public snake: Position;
+    public snake: Array<Position>;
 
     /**
-     * Position of the food in the game / on the
+     * Position of the piece of food in the game / on the
      * canvas.
      */
     public food: Position;
@@ -59,13 +59,17 @@ class Game {
         this.canvas = <HTMLCanvasElement> document.getElementById('snake-canvas');
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext('2d');
         
+        // Set width and size of the canvas.
+        this.canvas.width = 600;
+        this.canvas.height = 600;
+
         // Set initial positions of snake and food.
-        this.snake = { x: 2, y: 3 };
-        this.food = { x: 7, y: 9 };
+        this.snake = [{ x: 2, y: 3 }];
+        this.food = { x: 5, y: 5 };
 
         // Organize canvas as a "grid".
-        this.rows = 10;
-        this.columns = 10;
+        this.rows = 20;
+        this.columns = 20;
         this.cellWidth = this.canvas.width / this.columns;
         this.cellHeight = this.canvas.height / this.rows;
         
@@ -77,10 +81,6 @@ class Game {
      * Draw the current state of game (using HTML5 canvas).
      */
     public draw() {
-        // Make canvas the size of the window.
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-
         // The canvas element's width and height.
         var width = this.canvas.width;
         var height = this.canvas.height;
@@ -89,9 +89,25 @@ class Game {
         this.ctx.fillStyle = 'black';
         this.ctx.fillRect(0, 0, width, height);
 
-        // Draw snake in white color.
+        // Draw each part of the snake in a white color.
         this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(10, 20, 20, 20);
+        this.snake.forEach(snakePart => {
+            this.ctx.fillRect(
+                snakePart.x,
+                snakePart.y,
+                this.cellWidth,
+                this.cellHeight
+            );
+        });
+
+        // Draw the piece of food in a green color.
+        this.ctx.fillStyle = 'green';
+        this.ctx.fillRect(
+            this.food.x * this.cellWidth,
+            this.food.y * this.cellHeight,
+            this.cellWidth,
+            this.cellHeight
+        );
     };
 
     /**
