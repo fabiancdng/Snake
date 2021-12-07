@@ -27,6 +27,36 @@
     };
 
     /**
+     * Move the snake to the current direction.
+     * Only the head is being moved. `shiftParts()`
+     * has to be called after this to move the rest of
+     * the snake..
+     */
+    public move = () => {
+        // Move head of the snake according to the current direction.
+        switch (this.direction) {
+            case Direction.UP:
+                this.parts[0].y --;
+                break;
+
+            case Direction.DOWN:
+                this.parts[0].y ++;
+                break;
+                
+            case Direction.LEFT:
+                this.parts[0].x --;
+                break;
+
+            case Direction.RIGHT:
+                this.parts[0].x ++;
+                break;
+            
+            default:
+                return;
+        }
+    }
+
+    /**
      * Change the direction the snake is headed in.
      */
     public changeDirection = (direction: Direction) => {
@@ -44,9 +74,9 @@
     };
 
     /**
-     * Shifts all parts of the snake according to the direction
-     * (only the first part is being moved directly and this
-     * method is "adjusting the rest of the snake to the head").
+     * Shifts all parts of the snake (only the first part is being moved
+     * directly and this method is "adjusting the rest of the snake to
+     * the head").
      */
     public shiftParts = () => {
         for (let i = this.parts.length - 1; i > 0; i--) {

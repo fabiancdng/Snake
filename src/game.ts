@@ -115,29 +115,11 @@ class Game {
      * Method representing the game loop.
      */
     public loop = () => {
+        // Shift all parts of the snake. 
         this.snake.shiftParts();
-
-        // Move snake according to the current direction.
-        switch (this.snake.direction) {
-            case Direction.UP:
-                this.snake.parts[0].y --;
-                break;
-
-            case Direction.DOWN:
-                this.snake.parts[0].y ++;
-                break;
-                
-            case Direction.LEFT:
-                this.snake.parts[0].x --;
-                break;
-
-            case Direction.RIGHT:
-                this.snake.parts[0].x ++;
-                break;
-            
-            default:
-                return;
-        }
+    
+        // Move head of the snake according to the current direction.
+        this.snake.move();
 
         // Detect whether snake and food have collided in the
         // current iteration of the game loop.
@@ -149,6 +131,31 @@ class Game {
 
                 // Grow snake by one square.
                 this.snake.grow();
+                return;
             }
+
+        // Detect whether or not game is over.
+        // Step 1: Has the snake collided with a wall/edge?
+        // TODO: Move to own function / collision detection class(?)
+        if (this.snake.parts[0].x < 0
+            || this.snake.parts[0].x > this.columns - 1
+            || this.snake.parts[0].y < 0
+            || this.snake.parts[0].y > this.rows - 1) {
+                alert('Game over!');
+            }
+
+        // Detect whether or not game is over.
+        // Step 1: Has the snake collided with a itself?
+        // TODO: Move to own function / collision detection class(?)
+        let head = this.snake.parts[0];
+        let otherParts = this.snake.parts.slice(1);
+
+        // Check if head has the same position as another part of the
+        // snake.
+        let collided = otherParts.some(
+            part => part.x === head.x && part.y === head.y
+        );
+        
+        if (collided) alert('Game over!');
     };
 };
