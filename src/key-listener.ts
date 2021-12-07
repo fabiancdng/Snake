@@ -65,6 +65,6 @@ class KeyListener {
     public destroyListener = () => {
         // Remove global event listener.
         window.removeEventListener('keydown', this.handleKeyPress);
-    }
+    };
 
 }

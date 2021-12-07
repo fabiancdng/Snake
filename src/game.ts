@@ -30,10 +30,9 @@ class Game {
     public snake: Snake;
 
     /**
-     * Position of the piece of food in the game / on the
-     * canvas.
+     * The active instance of the `Food` object.
      */
-    public food: Position;
+    public food: Food;
 
     /**
      * Width of a single cell.
@@ -62,17 +61,15 @@ class Game {
         this.canvas.width = 600;
         this.canvas.height = 600;
 
-        // Create a new instance of a snake.
-        this.snake = new Snake();
-
-        // Set initial positions of the food.
-        this.food = { x: 5, y: 5 };
-
         // Organize canvas as a "grid".
         this.rows = 20;
         this.columns = 20;
         this.cellWidth = this.canvas.width / this.columns;
         this.cellHeight = this.canvas.height / this.rows;
+
+        // Instantiate `Snake` and `Food`.
+        this.snake = new Snake();
+        this.food = new Food(this.rows, this.columns);
 
         // Initialize KeyListener and pass snake (so it can control the snake).
         this.keyListener = new KeyListener(this.snake);
@@ -104,8 +101,8 @@ class Game {
         // Draw the piece of food in a green color.
         this.ctx.fillStyle = 'green';
         this.ctx.fillRect(
-            this.food.x * this.cellWidth,
-            this.food.y * this.cellHeight,
+            this.food.position.x * this.cellWidth,
+            this.food.position.y * this.cellHeight,
             this.cellWidth,
             this.cellHeight
         );
