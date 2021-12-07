@@ -4,14 +4,14 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class KeyListener {
+class KeyboardListener {
     /**
      * The active instance of the `Snake` object.
      */
     public snake: Snake;
 
     /**
-     * Constructor to create and initialize a KeyListener.
+     * Constructor to create and initialize a KeyboardListener.
      */
     public constructor(snake: Snake) {
         // Register global event listener.
@@ -59,7 +59,7 @@ class KeyListener {
     };
 
     /**
-     * Removes event listener and stops the KeyListener
+     * Removes event listener and stops the KeyboardListener
      * from listening for further key press events.
      */
     public destroyListener = () => {

@@ -34,9 +34,9 @@
 
     /**
      * Places a piece of food in a random position in the
-     * game / on the canvas.
+     * game / on the canvas (by relocating the old one).
      */
-    public place = () => {
+    public relocate = () => {
         // Randomly generate coordinates for the food.
         let foodX = Math.floor(Math.random() * this.columns);
         let foodY = Math.floor(Math.random() * this.rows);

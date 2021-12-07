@@ -32,4 +32,31 @@
     public changeDirection = (direction: Direction) => {
         this.direction = direction;
     };
+
+    /**
+     * Grow the snake (increase length by another square).
+     */
+    public grow = () => {
+        this.parts.push({
+            x: this.parts[0].x,
+            y: this.parts[0].y
+        });
+    };
+
+    /**
+     * Shifts all parts of the snake according to the direction
+     * (only the first part is being moved directly and this
+     * method is "adjusting the rest of the snake to the head").
+     */
+    public shiftParts = () => {
+        for (let i = this.parts.length - 1; i > 0; i--) {
+            // Get position of current and previous part.
+            const currentPart = this.parts[i];
+            const previousPart = this.parts[i - 1];
+
+            // Swap positions.
+            currentPart.x = previousPart.x;
+            currentPart.y = previousPart.y;
+        }
+    };
 };

@@ -45,9 +45,9 @@ class Game {
     public cellHeight: number;
 
     /**
-     * The active instance of the `KeyListener` object.
+     * The active instance of the `KeyboardListener` object.
      */
-    public keyListener: KeyListener;
+    public keyboardListener: KeyboardListener;
 
     /**
      * Constructor to create a new instance of the game.
@@ -71,8 +71,8 @@ class Game {
         this.snake = new Snake();
         this.food = new Food(this.rows, this.columns);
 
-        // Initialize KeyListener and pass snake (so it can control the snake).
-        this.keyListener = new KeyListener(this.snake);
+        // Initialize KeyboardListener and pass snake (so it can control the snake).
+        this.keyboardListener = new KeyboardListener(this.snake);
     };
 
     /**
@@ -115,6 +115,8 @@ class Game {
      * Method representing the game loop.
      */
     public loop = () => {
+        this.snake.shiftParts();
+
         // Move snake according to the current direction.
         switch (this.snake.direction) {
             case Direction.UP:
@@ -124,18 +126,29 @@ class Game {
             case Direction.DOWN:
                 this.snake.parts[0].y ++;
                 break;
+                
+            case Direction.LEFT:
+                this.snake.parts[0].x --;
+                break;
 
             case Direction.RIGHT:
                 this.snake.parts[0].x ++;
-                break;
-
-            case Direction.LEFT:
-                this.snake.parts[0].x --;
                 break;
             
             default:
                 return;
         }
 
+        // Detect whether snake and food have collided in the
+        // current iteration of the game loop.
+        // TODO: Abstracted/dedicated collision detection.
+        if (this.snake.parts[0].x === this.food.position.x
+            && this.snake.parts[0].y === this.food.position.y) {
+                // Move food to different (random) coordinates.
+                this.food.relocate();
+
+                // Grow snake by one square.
+                this.snake.grow();
+            }
     };
 };
