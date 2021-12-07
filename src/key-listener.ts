@@ -27,25 +27,30 @@ class KeyListener {
     public handleKeyPress = (event: KeyboardEvent) => {
         // Direction the snake is now supposed to use.
         var direction: Direction;
+        
         // The key pressed on the keyboard.
         var key = event.key;
 
         // Determine direction by looking up the pressed key.
         switch (key) {
             case 'ArrowUp':
-                this.snake.changeDirection(Direction.LEFT);
+                direction = Direction.UP;
+                this.snake.changeDirection(direction);
                 break;
 
             case 'ArrowDown':
-                this.snake.changeDirection(Direction.LEFT);
+                direction = Direction.DOWN;
+                this.snake.changeDirection(direction);
                 break;
 
             case 'ArrowLeft':
-                this.snake.changeDirection(Direction.LEFT);
+                direction = Direction.LEFT;
+                this.snake.changeDirection(direction);
                 break;
 
             case 'ArrowRight':
-                this.snake.changeDirection(Direction.LEFT);
+                direction = Direction.RIGHT;
+                this.snake.changeDirection(direction);
                 break;
 
             default:
