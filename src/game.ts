@@ -108,6 +108,9 @@ class Game {
             this.cellWidth,
             this.cellHeight
         );
+
+        // Redraw game when any coordinate has changed.
+        requestAnimationFrame(this.draw);
     };
 
     /**
