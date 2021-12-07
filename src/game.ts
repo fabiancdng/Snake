@@ -118,6 +118,27 @@ class Game {
      * Method representing the game loop.
      */
     public loop = () => {
-        this.snake.parts[0].x --;
+        // Move snake according to the current direction.
+        switch (this.snake.direction) {
+            case Direction.UP:
+                this.snake.parts[0].y --;
+                break;
+
+            case Direction.DOWN:
+                this.snake.parts[0].y ++;
+                break;
+
+            case Direction.RIGHT:
+                this.snake.parts[0].x ++;
+                break;
+
+            case Direction.LEFT:
+                this.snake.parts[0].x --;
+                break;
+            
+            default:
+                return;
+        }
+
     };
 };

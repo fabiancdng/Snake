@@ -15,7 +15,7 @@ class KeyListener {
      */
     public constructor(snake: Snake) {
         // Register global event listener.
-        window.addEventListener('keydown', event => this.handleKeyPress);
+        window.addEventListener('keydown', event => this.handleKeyPress(event));
         
         // Get the active instance of the `Snake` object.
         this.snake = snake;
