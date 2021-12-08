@@ -35,6 +35,16 @@ class Game {
     public food: Food;
 
     /**
+     * Points gained so far (in this game).
+     */
+    public score: number;
+
+    /**
+     * Boolean to indicate whether or not the game is over.
+     */
+    public gameOver: boolean;
+
+    /**
      * Width of a single cell.
      */
     public cellWidth: number;
@@ -70,10 +80,24 @@ class Game {
         // Instantiate `Snake` and `Food`.
         this.snake = new Snake();
         this.food = new Food(this.rows, this.columns);
+        
+        // Initialize score and `gameOver` boolean.
+        this.score = 0;
+        this.gameOver = false;
 
         // Initialize KeyboardListener and pass snake (so it can control the snake).
         this.keyboardListener = new KeyboardListener(this.snake);
     };
+
+    /**
+     * Resets score, positions of snake and food and shrinks
+     * the snake to original size.
+     */
+    public restart = () => {
+        this.snake.reset();
+        this.food.relocate();
+        this.gameOver = false;
+    }
 
     /**
      * Draw the current state of game (using HTML5 canvas).
@@ -115,6 +139,9 @@ class Game {
      * Method representing the game loop.
      */
     public loop = () => {
+        // Restart game when over.
+        if (this.gameOver == true) this.restart();
+
         // Shift all parts of the snake. 
         this.snake.shiftParts();
     
@@ -128,7 +155,8 @@ class Game {
             && this.snake.parts[0].y === this.food.position.y) {
                 // Move food to different (random) coordinates.
                 this.food.relocate();
-
+                // Increase score by 1.
+                this.score += 1;
                 // Grow snake by one square.
                 this.snake.grow();
                 return;
@@ -141,6 +169,7 @@ class Game {
             || this.snake.parts[0].x > this.columns - 1
             || this.snake.parts[0].y < 0
             || this.snake.parts[0].y > this.rows - 1) {
+                this.gameOver = true;
                 alert('Game over!');
             }
 
@@ -156,6 +185,9 @@ class Game {
             part => part.x === head.x && part.y === head.y
         );
         
-        if (collided) alert('Game over!');
+        if (collided) {
+            this.gameOver = true;
+            alert('Game over!')
+        };
     };
 };

@@ -89,4 +89,12 @@
             currentPart.y = previousPart.y;
         }
     };
+
+    /**
+     * Resets snake to original size and relocates it to the
+     * initial coordinates.
+     */
+    public reset = () => {
+        this.parts = [{ x: 7, y: 3 }];
+    };
 };
