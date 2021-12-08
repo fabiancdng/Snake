@@ -12,7 +12,7 @@
     /**
      * The active instance of the `Game` object.
      */
-    public game: Game;
+    private game: Game;
 
     /**
      * Constructor to create a new instance of the `Food`

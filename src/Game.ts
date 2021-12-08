@@ -166,7 +166,7 @@ class Game {
     /**
      * Handler function for keyboard events.
      */
-    public handleKeyPress = (event: KeyboardEvent) => {
+    private handleKeyPress = (event: KeyboardEvent) => {
         // Direction the snake is now supposed to use.
         var direction: Direction;
         
@@ -217,7 +217,7 @@ class Game {
         var width = this.canvas.width;
         var height = this.canvas.height;
         
-        // Fill canvas with a black background color.
+        // Fill canvas with background color.
         this.ctx.fillStyle = '#0b0c23';
         this.ctx.fillRect(0, 0, width, height);
 

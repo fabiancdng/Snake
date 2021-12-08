@@ -1,5 +1,10 @@
 var game = new Game();
 
-game.draw();
+function startGame() {
+    game.draw();
+    setInterval(game.loop, 100);
+}
 
-setInterval(game.loop, 100);
+var titleScreen = new TitleScreen(startGame);
+
+titleScreen.draw();
