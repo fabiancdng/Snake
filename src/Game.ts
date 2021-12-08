@@ -67,9 +67,9 @@ class Game {
         this.canvas = <HTMLCanvasElement> document.getElementById('snake-canvas');
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext('2d');
         
-        // Set width and size of the canvas.
-        this.canvas.width = 600;
-        this.canvas.height = 600;
+        // Set width and size of the canvas according to display.
+        this.canvas.width = this.canvas.clientWidth;
+        this.canvas.height = this.canvas.clientHeight;
 
         // Organize canvas as a "grid".
         this.rows = 20;
@@ -96,8 +96,22 @@ class Game {
     public restart = () => {
         this.snake.reset();
         this.food.relocate();
+        this.changeScore(0);
         this.gameOver = false;
-    }
+    };
+
+    /**
+     * Changes `this.score` to the passed score.
+     * Also updates all references in the DOM.
+     */
+    public changeScore = (score: number) => {
+        // Update score attribute of the game.
+        this.score = score;
+
+        // Update displayed score in the game.
+        let scoreHolder = <HTMLElement> document.getElementById('score');
+        scoreHolder.innerText = `Score: ${ this.score }`;
+    };
 
     /**
      * Draw the current state of game (using HTML5 canvas).
@@ -156,7 +170,7 @@ class Game {
                 // Move food to different (random) coordinates.
                 this.food.relocate();
                 // Increase score by 1.
-                this.score += 1;
+                this.changeScore(this.score + 1);
                 // Grow snake by one square.
                 this.snake.grow();
                 return;
@@ -170,7 +184,7 @@ class Game {
             || this.snake.parts[0].y < 0
             || this.snake.parts[0].y > this.rows - 1) {
                 this.gameOver = true;
-                alert('Game over!');
+                alert(`Game over! Score: ${ this.score }`);
             }
 
         // Detect whether or not game is over.
@@ -187,7 +201,7 @@ class Game {
         
         if (collided) {
             this.gameOver = true;
-            alert('Game over!')
+            alert(`Game over! Score: ${ this.score }`);
         };
     };
 };
