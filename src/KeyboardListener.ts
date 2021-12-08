@@ -34,21 +34,30 @@ class KeyboardListener {
         // Determine direction by looking up the pressed key.
         switch (key) {
             case 'ArrowUp':
+                if (this.snake.direction === Direction.DOWN
+                    && this.snake.parts.length >= 2) break;
                 direction = Direction.UP;
                 this.snake.direction = direction;
                 break;
 
             case 'ArrowDown':
+                // Bail early because snake can't go through itself.
+                if (this.snake.direction === Direction.UP
+                    && this.snake.parts.length >= 2) break;
                 direction = Direction.DOWN;
                 this.snake.direction = direction;
                 break;
 
             case 'ArrowLeft':
+                if (this.snake.direction === Direction.RIGHT
+                    && this.snake.parts.length >= 2) break;
                 direction = Direction.LEFT;
                 this.snake.direction = direction;
                 break;
 
             case 'ArrowRight':
+                if (this.snake.direction === Direction.LEFT
+                    && this.snake.parts.length >= 2) break;
                 direction = Direction.RIGHT;
                 this.snake.direction = direction;
                 break;
