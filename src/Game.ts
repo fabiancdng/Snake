@@ -55,6 +55,11 @@ class Game {
     public cellHeight: number;
 
     /**
+     * The active instance of the `CollisionDetection` object.
+     */
+    public collisionDetection: CollisionDetection;
+
+    /**
      * The active instance of the `KeyboardListener` object.
      */
     public keyboardListener: KeyboardListener;
@@ -87,6 +92,8 @@ class Game {
 
         // Initialize KeyboardListener and pass snake (so it can control the snake).
         this.keyboardListener = new KeyboardListener(this.snake);
+        // Initialize CollisionDetection.
+        this.collisionDetection = new CollisionDetection();
     };
 
     /**
@@ -162,46 +169,8 @@ class Game {
         // Move head of the snake according to the current direction.
         this.snake.move();
 
-        // Detect whether snake and food have collided in the
-        // current iteration of the game loop.
-        // TODO: Abstracted/dedicated collision detection.
-        if (this.snake.parts[0].x === this.food.position.x
-            && this.snake.parts[0].y === this.food.position.y) {
-                // Move food to different (random) coordinates.
-                this.food.relocate();
-                // Increase score by 1.
-                this.changeScore(this.score + 1);
-                // Grow snake by one square.
-                this.snake.grow();
-                return;
-            }
-
-        // Detect whether or not game is over.
-        // Step 1: Has the snake collided with a wall/edge?
-        // TODO: Move to own function / collision detection class(?)
-        if (this.snake.parts[0].x < 0
-            || this.snake.parts[0].x > this.columns - 1
-            || this.snake.parts[0].y < 0
-            || this.snake.parts[0].y > this.rows - 1) {
-                this.gameOver = true;
-                alert(`Game over! Score: ${ this.score }`);
-            }
-
-        // Detect whether or not game is over.
-        // Step 1: Has the snake collided with a itself?
-        // TODO: Move to own function / collision detection class(?)
-        let head = this.snake.parts[0];
-        let otherParts = this.snake.parts.slice(1);
-
-        // Check if head has the same position as another part of the
-        // snake.
-        let collided = otherParts.some(
-            part => part.x === head.x && part.y === head.y
-        );
-        
-        if (collided) {
-            this.gameOver = true;
-            alert(`Game over! Score: ${ this.score }`);
-        };
+        // Check whether one of the pre-defined collisions have happened
+        // in the current iteration of the game loop.
+        this.collisionDetection.checkForAndHandleCollisions(this);
     };
 };
