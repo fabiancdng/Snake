@@ -15,14 +15,33 @@ class Game {
     public ctx: CanvasRenderingContext2D;
 
     /**
-     * The number of rows the whole game has.
+     * The area of the canvas that is being used by the game.
+     * All "sprites" can only move within that area. The remaining
+     * space of the canvas is being used for things like scores or
+     * other game metrics. The game area is also divided in a grid-like
+     * coordinates system.
+     */
+    public gameArea: GameArea;
+
+    /**
+     * The number of rows the game area is divided in.
      */
     public rows: number;
 
     /**
-     * The number of columns the whole game has.
+     * The number of columns the game area is divided in.
      */
     public columns: number;
+
+    /**
+     * Width of a single cell in the game area.
+     */
+    public cellWidth: number;
+ 
+    /**
+     * Height of a single cell in the game area.
+     */
+    public cellHeight: number;
 
     /**
      * The active instance of the `Snake` object.
@@ -45,16 +64,6 @@ class Game {
     public gameOver: boolean;
 
     /**
-     * Width of a single cell.
-     */
-    public cellWidth: number;
-
-    /**
-     * Height of a single cell.
-     */
-    public cellHeight: number;
-
-    /**
      * The active instance of the `CollisionDetection` object.
      */
     public collisionDetection: CollisionDetection;
@@ -73,14 +82,28 @@ class Game {
         this.ctx = <CanvasRenderingContext2D> this.canvas.getContext('2d');
         
         // Set width and size of the canvas according to display.
-        this.canvas.width = this.canvas.clientWidth;
-        this.canvas.height = this.canvas.clientHeight;
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
 
-        // Organize canvas as a "grid".
-        this.rows = 20;
-        this.columns = 20;
-        this.cellWidth = this.canvas.width / this.columns;
-        this.cellHeight = this.canvas.height / this.rows;
+        // Calculate game area width and offset.
+        let canvasWidth = this.canvas.width;
+        let canvasHeight = this.canvas.height;
+        let gameAreaWidth = this.canvas.width / 1.5;
+        let gameAreaHeight =  4 * (this.canvas.height / 5);
+        let gameAreaAspectRatio = Math.floor(gameAreaHeight / gameAreaWidth);
+
+        this.gameArea = {
+            width: gameAreaWidth,
+            height: gameAreaHeight,
+            offsetX: (canvasWidth - gameAreaWidth) / 2,
+            offsetY: (canvasHeight - gameAreaHeight) / 2
+        };
+
+        // Organize game area in the canvas as a "grid".
+        this.rows = Math.floor(gameAreaWidth / 30);
+        this.columns = this.rows * gameAreaAspectRatio;
+        this.cellWidth = gameAreaWidth / this.columns;
+        this.cellHeight = gameAreaHeight / this.rows;
 
         // Instantiate `Snake` and `Food`.
         this.snake = new Snake();
@@ -114,10 +137,6 @@ class Game {
     public changeScore = (score: number) => {
         // Update score attribute of the game.
         this.score = score;
-
-        // Update displayed score in the game.
-        let scoreHolder = <HTMLElement> document.getElementById('score');
-        scoreHolder.innerText = `Score: ${ this.score }`;
     };
 
     /**
@@ -127,17 +146,31 @@ class Game {
         // The canvas element's width and height.
         var width = this.canvas.width;
         var height = this.canvas.height;
-
+        
         // Fill canvas with a black background color.
-        this.ctx.fillStyle = 'black';
+        this.ctx.fillStyle = '#0b0c23';
         this.ctx.fillRect(0, 0, width, height);
+
+        // Draw game area (in different color).
+        this.ctx.fillStyle = 'black';
+        this.ctx.fillRect(
+            this.gameArea.offsetX,
+            this.gameArea.offsetY,
+            this.gameArea.width,
+            this.gameArea.height
+        );
+
+        // Draw score count (next to game area).
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '30px sans-serif';
+        this.ctx.fillText(`Score: ${ this.score }`, 20, this.gameArea.offsetY);
 
         // Draw each part of the snake in a white color.
         this.ctx.fillStyle = 'white';
         this.snake.parts.forEach(snakePart => {
             this.ctx.fillRect(
-                snakePart.x * this.cellWidth,
-                snakePart.y * this.cellHeight,
+                this.gameArea.offsetX + snakePart.x * this.cellWidth,
+                this.gameArea.offsetY + snakePart.y * this.cellHeight,
                 this.cellWidth,
                 this.cellHeight
             );
@@ -146,8 +179,8 @@ class Game {
         // Draw the piece of food in a green color.
         this.ctx.fillStyle = 'green';
         this.ctx.fillRect(
-            this.food.position.x * this.cellWidth,
-            this.food.position.y * this.cellHeight,
+            this.gameArea.offsetX + this.food.position.x * this.cellWidth,
+            this.gameArea.offsetY + this.food.position.y * this.cellHeight,
             this.cellWidth,
             this.cellHeight
         );
