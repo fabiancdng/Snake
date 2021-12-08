@@ -126,7 +126,7 @@ class Game {
         this.gameOver = false;
 
         // Initialize KeyboardListener and pass snake (so it can control the snake).
-        this.keyboardListener = new KeyboardListener(this.snake);
+        this.keyboardListener = new KeyboardListener(this.handleKeyPress);
         // Initialize CollisionDetection.
         this.collisionDetection = new CollisionDetection(this);
         // Initialize DataStorage.
@@ -161,6 +161,52 @@ class Game {
     public changeScore = (score: number) => {
         // Update score attribute of the game.
         this.score = score;
+    };
+
+    /**
+     * Handler function for keyboard events.
+     */
+    public handleKeyPress = (event: KeyboardEvent) => {
+        // Direction the snake is now supposed to use.
+        var direction: Direction;
+        
+        // The key pressed on the keyboard.
+        var key = event.key;
+
+        // Determine direction by looking up the pressed key.
+        switch (key) {
+            case 'ArrowUp':
+                if (this.snake.direction === Direction.DOWN
+                    && this.snake.parts.length >= 2) break;
+                direction = Direction.UP;
+                this.snake.direction = direction;
+                break;
+
+            case 'ArrowDown':
+                // Bail early because snake can't go through itself.
+                if (this.snake.direction === Direction.UP
+                    && this.snake.parts.length >= 2) break;
+                direction = Direction.DOWN;
+                this.snake.direction = direction;
+                break;
+
+            case 'ArrowLeft':
+                if (this.snake.direction === Direction.RIGHT
+                    && this.snake.parts.length >= 2) break;
+                direction = Direction.LEFT;
+                this.snake.direction = direction;
+                break;
+
+            case 'ArrowRight':
+                if (this.snake.direction === Direction.LEFT
+                    && this.snake.parts.length >= 2) break;
+                direction = Direction.RIGHT;
+                this.snake.direction = direction;
+                break;
+
+            default:
+                return;
+        }
     };
 
     /**
