@@ -10,24 +10,16 @@
     public position: Position;
 
     /**
-     * The number of rows the whole game has.
+     * The active instance of the `Game` object.
      */
-    public rows: number;
-
-    /**
-     * The number of columns the whole game has.
-     */
-    public columns: number;
+    public game: Game;
 
     /**
      * Constructor to create a new instance of the `Food`
      * object.
      */
-    public constructor(rows: number, columns: number) {
-        // Get number of total rows and columns the game has.
-        this.rows = rows;
-        this.columns = columns;
-
+    public constructor(game: Game) {
+        this.game = game;
         // Set initial position of the food.
         this.position = { x: 7, y: 3 };
     };
@@ -38,8 +30,8 @@
      */
     public relocate = () => {
         // Randomly generate coordinates for the food.
-        let foodX = Math.floor(Math.random() * this.columns);
-        let foodY = Math.floor(Math.random() * this.rows);
+        var foodX = Math.floor(Math.random() * this.game.columns);
+        var foodY = Math.floor(Math.random() * this.game.rows);
 
         // Change position of the current food object to create
         // the "illusion" of a new piece of food spawning.

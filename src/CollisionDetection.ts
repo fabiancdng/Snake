@@ -6,10 +6,16 @@
  */
 class CollisionDetection {
     /**
+     * The active instance of the `Game` object.
+     */
+    public game: Game;
+
+    /**
      * Constructor to create a new instance of the `CollisionDetection`
      * object.
      */
-    public constructor() {
+    public constructor(game: Game) {
+        this.game = game;
         return;
     };
 
@@ -59,26 +65,33 @@ class CollisionDetection {
      * or have collided with the wall (snake with food, snake with wall,
      * snake with itself).
      */
-    public checkForAndHandleCollisions = (game: Game) => {
+    public checkForAndHandleCollisions = () => {
+        // Define attributes in local scope for easy reference.
+        var game = this.game;
+        var snake = this.game.snake;
+        let food = this.game.food;
+        var rows = this.game.rows;
+        var columns = this.game.columns;
+
         // Check if snake head (!) and food have collided.
-        if (this.haveCollided([game.snake.parts[0]], [game.food.position])) {
+        if (this.haveCollided([snake.parts[0]], [food.position])) {
             // Move food to different (random) coordinates.
-            game.food.relocate();
+            food.relocate();
             // Increase score by 1.
             game.changeScore(game.score + 1);
             // Grow snake by one square.
-            game.snake.grow();
+            snake.grow();
             return;
         }
 
         // Check if any part of the snake has collided with a wall / edge.
-        if (this.hasCollidedWithWall(game.snake.parts, game.rows, game.columns)) {
+        if (this.hasCollidedWithWall(snake.parts, rows, columns)) {
             game.gameOver = true;
             alert(`Game over! Score: ${ game.score }`);
         }
 
         // Check if snake has collided with itself.
-        if (this.haveCollided([game.snake.parts[0]], game.snake.parts.slice(1))) {
+        if (this.haveCollided([snake.parts[0]], snake.parts.slice(1))) {
             game.gameOver = true;
             alert(`Game over! Score: ${ game.score }`);
         }

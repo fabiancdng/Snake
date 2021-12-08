@@ -84,7 +84,7 @@ class Game {
 
         // Instantiate `Snake` and `Food`.
         this.snake = new Snake();
-        this.food = new Food(this.rows, this.columns);
+        this.food = new Food(this);
         
         // Initialize score and `gameOver` boolean.
         this.score = 0;
@@ -93,7 +93,7 @@ class Game {
         // Initialize KeyboardListener and pass snake (so it can control the snake).
         this.keyboardListener = new KeyboardListener(this.snake);
         // Initialize CollisionDetection.
-        this.collisionDetection = new CollisionDetection();
+        this.collisionDetection = new CollisionDetection(this);
     };
 
     /**
@@ -171,6 +171,6 @@ class Game {
 
         // Check whether one of the pre-defined collisions have happened
         // in the current iteration of the game loop.
-        this.collisionDetection.checkForAndHandleCollisions(this);
+        this.collisionDetection.checkForAndHandleCollisions();
     };
 };
