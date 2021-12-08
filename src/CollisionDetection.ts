@@ -69,7 +69,7 @@ class CollisionDetection {
         // Define attributes in local scope for easy reference.
         var game = this.game;
         var snake = this.game.snake;
-        let food = this.game.food;
+        var food = this.game.food;
         var rows = this.game.rows;
         var columns = this.game.columns;
 

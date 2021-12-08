@@ -88,9 +88,10 @@ class Game {
         // Calculate game area width and offset.
         let canvasWidth = this.canvas.width;
         let canvasHeight = this.canvas.height;
-        let gameAreaWidth = this.canvas.width / 1.5;
-        let gameAreaHeight =  4 * (this.canvas.height / 5);
-        let gameAreaAspectRatio = Math.floor(gameAreaHeight / gameAreaWidth);
+        
+        // Calculate game area dimensions in a 4:3 aspect ratio.
+        let gameAreaWidth = Math.floor(this.canvas.width / 1.7);
+        let gameAreaHeight =  Math.floor((gameAreaWidth / 4) * 3);
 
         this.gameArea = {
             width: gameAreaWidth,
@@ -100,8 +101,8 @@ class Game {
         };
 
         // Organize game area in the canvas as a "grid".
-        this.rows = Math.floor(gameAreaWidth / 30);
-        this.columns = this.rows * gameAreaAspectRatio;
+        this.rows = Math.floor(gameAreaWidth / 20);
+        this.columns = Math.floor(gameAreaHeight / 20);
         this.cellWidth = gameAreaWidth / this.columns;
         this.cellHeight = gameAreaHeight / this.rows;
 
