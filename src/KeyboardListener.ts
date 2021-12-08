@@ -35,22 +35,22 @@ class KeyboardListener {
         switch (key) {
             case 'ArrowUp':
                 direction = Direction.UP;
-                this.snake.changeDirection(direction);
+                this.snake.direction = direction;
                 break;
 
             case 'ArrowDown':
                 direction = Direction.DOWN;
-                this.snake.changeDirection(direction);
+                this.snake.direction = direction;
                 break;
 
             case 'ArrowLeft':
                 direction = Direction.LEFT;
-                this.snake.changeDirection(direction);
+                this.snake.direction = direction;
                 break;
 
             case 'ArrowRight':
                 direction = Direction.RIGHT;
-                this.snake.changeDirection(direction);
+                this.snake.direction = direction;
                 break;
 
             default:

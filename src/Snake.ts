@@ -57,13 +57,6 @@
     }
 
     /**
-     * Change the direction the snake is headed in.
-     */
-    public changeDirection = (direction: Direction) => {
-        this.direction = direction;
-    };
-
-    /**
      * Grow the snake (increase length by another square).
      */
     public grow = () => {
@@ -96,7 +89,7 @@
      */
     public reset = () => {
         // Go back to original direction.
-        this.changeDirection(Direction.RIGHT);
+        this.direction = Direction.RIGHT;
         // Go back to original length and coordinates.
         this.parts = [{ x: 7, y: 3 }];
     };

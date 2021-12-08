@@ -15,11 +15,9 @@ class Game {
     public ctx: CanvasRenderingContext2D;
 
     /**
-     * The area of the canvas that is being used by the game.
-     * All "sprites" can only move within that area. The remaining
-     * space of the canvas is being used for things like scores or
-     * other game metrics. The game area is also divided in a grid-like
-     * coordinates system.
+     * Area of the canvas that is being used by the game.
+     * "Sprites" can only move within that area.
+     * Divided into a grid-like coordinates system.
      */
     public gameArea: GameArea;
 
@@ -96,19 +94,21 @@ class Game {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
 
-        // Calculate game area width and offset.
+        // Get width and height of canvas.
         let canvasWidth = this.canvas.width;
         let canvasHeight = this.canvas.height;
-        
         // Calculate game area dimensions in a 4:3 aspect ratio.
         let gameAreaWidth = Math.floor(this.canvas.width / 1.7);
         let gameAreaHeight =  Math.floor((gameAreaWidth / 4) * 3);
+        // Calculate offsetX (x-axis; left) and offsetY (y-axis; top).
+        let offsetX = ((canvasWidth - gameAreaWidth) / 2) * 1.3;
+        let offsetY = (canvasHeight - gameAreaHeight) / 2;
 
         this.gameArea = {
             width: gameAreaWidth,
             height: gameAreaHeight,
-            offsetX: (canvasWidth - gameAreaWidth) / 2,
-            offsetY: (canvasHeight - gameAreaHeight) / 2
+            offsetX: offsetX,
+            offsetY: offsetY
         };
 
         // Organize game area in the canvas as a "grid".
@@ -186,12 +186,12 @@ class Game {
 
         // Draw score count and high score (next to game area).
         this.ctx.fillStyle = 'white';
+        this.ctx.font = '35px sans-serif';
+        this.ctx.fillText(`Score: ${ this.score }`, 25, this.gameArea.offsetY + 50);
         this.ctx.font = '30px sans-serif';
-        this.ctx.fillText(`Score: ${ this.score }`, 20, this.gameArea.offsetY);
-        this.ctx.font = '25px sans-serif';
-        this.ctx.fillText(`High score: ${ this.highScore }`, 20, this.gameArea.offsetY + 50);
-        this.ctx.font = '15px sans-serif';
-        this.ctx.fillText('Created by @fabiancdng.', 20, this.canvas.height- 50);
+        this.ctx.fillText(`High score: ${ this.highScore }`, 25, this.gameArea.offsetY + 100);
+        this.ctx.font = '20px sans-serif';
+        this.ctx.fillText('Created by @fabiancdng.', 25, this.canvas.height- 50);
 
 
         // Draw each part of the snake in a white color.
