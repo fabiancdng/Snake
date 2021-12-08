@@ -9,16 +9,16 @@ class KeyboardListener {
      * Function called when a key has been pressed.
      * Event `KeyboardEvent` is passed to that function.
      */
-    private callback: Function;
+    private callback: (event: KeyboardEvent) => void;
 
     /**
      * Constructor to create and initialize a KeyboardListener.
      */
-    public constructor(callback: Function) {
+    public constructor(callback: (event: KeyboardEvent) => void) {
         this.callback = callback;
 
         // Register global event listener.
-        window.addEventListener('keydown', event => this.callback(event));
+        window.addEventListener('keydown', this.callback);
     };
 
     /**
@@ -27,7 +27,7 @@ class KeyboardListener {
      */
     public destroyListener = () => {
         // Remove global event listener.
-        window.removeEventListener('keydown', event => this.callback(event));
+        window.removeEventListener('keydown', this.callback);
     };
 
 }
