@@ -59,6 +59,11 @@ class Game {
     public score: number;
 
     /**
+     * Most points gained in a single game so far by a user.
+     */
+    public highScore: number;
+
+    /**
      * Boolean to indicate whether or not the game is over.
      */
     public gameOver: boolean;
@@ -72,6 +77,12 @@ class Game {
      * The active instance of the `KeyboardListener` object.
      */
     public keyboardListener: KeyboardListener;
+
+
+    /**
+     * The active instance of the `DataStorage` object.
+     */
+    public dataStorage: DataStorage;
 
     /**
      * Constructor to create a new instance of the game.
@@ -118,13 +129,25 @@ class Game {
         this.keyboardListener = new KeyboardListener(this.snake);
         // Initialize CollisionDetection.
         this.collisionDetection = new CollisionDetection(this);
+        // Initialize DataStorage.
+        this.dataStorage = new DataStorage();
+
+        // Try to get user's high score (if existent).
+        this.highScore = this.dataStorage.getHighscore();
     };
 
     /**
      * Resets score, positions of snake and food and shrinks
      * the snake to original size.
+     * Also takes care of saving the high score.
      */
     public restart = () => {
+        // If score is bigger than high score, save new high score.
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+            this.dataStorage.saveHighscore(this.score);
+        }
+        
         this.snake.reset();
         this.food.relocate();
         this.changeScore(0);
@@ -161,10 +184,15 @@ class Game {
             this.gameArea.height
         );
 
-        // Draw score count (next to game area).
+        // Draw score count and high score (next to game area).
         this.ctx.fillStyle = 'white';
         this.ctx.font = '30px sans-serif';
         this.ctx.fillText(`Score: ${ this.score }`, 20, this.gameArea.offsetY);
+        this.ctx.font = '25px sans-serif';
+        this.ctx.fillText(`High score: ${ this.highScore }`, 20, this.gameArea.offsetY + 50);
+        this.ctx.font = '15px sans-serif';
+        this.ctx.fillText('Created by @fabiancdng.', 20, this.canvas.height- 50);
+
 
         // Draw each part of the snake in a white color.
         this.ctx.fillStyle = 'white';
