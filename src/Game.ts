@@ -101,7 +101,7 @@ class Game {
         };
 
         // Organize game area in the canvas as a "grid".
-        this.rows = Math.floor(gameAreaWidth / 20);
+        this.rows = Math.floor(gameAreaWidth / 30);
         this.columns = Math.floor(gameAreaHeight / 20);
         this.cellWidth = gameAreaWidth / this.columns;
         this.cellHeight = gameAreaHeight / this.rows;
