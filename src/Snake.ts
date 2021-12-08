@@ -23,7 +23,7 @@
         this.parts = [{ x: 7, y: 3 }];
         
         // Set initial direction of the snake.
-        this.direction = Direction.LEFT;
+        this.direction = Direction.RIGHT;
     };
 
     /**
@@ -95,6 +95,9 @@
      * initial coordinates.
      */
     public reset = () => {
+        // Go back to original direction.
+        this.changeDirection(Direction.RIGHT);
+        // Go back to original length and coordinates.
         this.parts = [{ x: 7, y: 3 }];
     };
 };
