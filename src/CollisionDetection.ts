@@ -1,10 +1,13 @@
+import Game from "./Game";
+import Position from "./types/Position";
+
 /**
  * Object for detecting collision of game objects and handling them
  * accordingly.
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class CollisionDetection {
+export default class CollisionDetection {
     /**
      * The active instance of the `Game` object.
      */

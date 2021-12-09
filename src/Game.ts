@@ -1,9 +1,17 @@
+import GameArea from "./types/GameArea";
+import Snake from "./Snake";
+import Food from "./Food";
+import CollisionDetection from "./CollisionDetection";
+import KeyboardListener from "./KeyboardListener";
+import DataStorage from "./DataStorage";
+import { Direction } from "./types/Direction";
+
 /**
  * Game class representing the whole game.
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class Game {
+export default class Game {
     /**
      * The HTML5 canvas element.
      */

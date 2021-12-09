@@ -4,7 +4,7 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class KeyboardListener {
+export default class KeyboardListener {
     /**
      * Function called when a key has been pressed.
      * Event `KeyboardEvent` is passed to that function.

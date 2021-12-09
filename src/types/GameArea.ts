@@ -5,7 +5,7 @@
  * other game metrics. The game area is also divided in a grid-like
  * coordinates system.
  */
-interface GameArea {
+export default interface GameArea {
     /**
      * Width (in pixel) of the game area.
      */

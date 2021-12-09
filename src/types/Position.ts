@@ -1,4 +1,4 @@
-interface Position {
+export default interface Position {
     /**
      * Position on the x-axis of the game / canvas.
      */

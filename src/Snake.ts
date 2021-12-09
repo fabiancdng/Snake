@@ -1,9 +1,12 @@
+import Position from "./types/Position";
+import { Direction } from "./types/Direction";
+
 /**
  * Object representing the snake.
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class Snake {
+export default class Snake {
     /**
      * Position of each part of the snake in the
      * game / on the canvas.

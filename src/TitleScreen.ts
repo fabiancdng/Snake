@@ -1,9 +1,11 @@
+import KeyboardListener from "./KeyboardListener";
+
 /**
  * Class representing the title screen.
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class TitleScreen {
+export default class TitleScreen {
     /**
      * The HTML5 canvas element.
      */

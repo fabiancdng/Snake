@@ -1,3 +1,6 @@
+import Game from './Game';
+import TitleScreen from './TitleScreen';
+
 var game = new Game();
 
 function startGame() {

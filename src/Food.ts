@@ -1,9 +1,12 @@
+import Position from "./types/Position";
+import Game from "./Game";
+
 /**
  * Object representing the food.
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
-class Food {
+export default class Food {
     /**
      * Current position of the food.
      */
