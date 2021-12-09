@@ -81,7 +81,7 @@ export default class CollisionDetection {
             // Move food to different (random) coordinates.
             food.relocate();
             // Increase score by 1.
-            game.changeScore(game.score + 1);
+            game.score = game.score + 1;
             // Grow snake by one square.
             snake.grow();
             return;

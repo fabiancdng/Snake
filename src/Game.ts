@@ -158,17 +158,8 @@ export default class Game {
         
         this.snake.reset();
         this.food.relocate();
-        this.changeScore(0);
+        this.score = 0;
         this.gameOver = false;
-    };
-
-    /**
-     * Changes `this.score` to the passed score.
-     * Also updates all references in the DOM.
-     */
-    public changeScore = (score: number) => {
-        // Update score attribute of the game.
-        this.score = score;
     };
 
     /**
