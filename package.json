@@ -4,7 +4,7 @@
     "description": "Snake built with TypeScript by @fabiancdng",
     "main": "app.ts",
     "scripts": {
-        "dev": "webpack --mode development",
+        "dev": "webpack --mode development --watch",
         "build": "webpack --mode production"
     },
     "repository": {
