@@ -38,4 +38,6 @@ npm start
 
 Alternatively, you can only run `tsc` to compile the TypeScript files and then throw the `dist/` folder alongside the `src/index.html` file and the `assets/` folder onto a real web server. Consider the import paths defined in `index.html`. Depending on your configuration you might have to adjust them.
 
+<br>
+
 **Copyright &copy; 2021 Fabian Reinders (fabiancdng)**

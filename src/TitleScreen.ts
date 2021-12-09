@@ -3,7 +3,7 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
- class TitleScreen {
+class TitleScreen {
     /**
      * The HTML5 canvas element.
      */

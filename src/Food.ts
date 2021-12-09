@@ -3,7 +3,7 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
- class Food {
+class Food {
     /**
      * Current position of the food.
      */

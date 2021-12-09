@@ -3,7 +3,7 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
- class DataStorage {
+class DataStorage {
     /**
      * The user's browser's localStorage object.
      */

@@ -3,7 +3,7 @@
  * 
  * @author Fabian Reinders <https://github.com/fabiancdng>
  */
- class Snake {
+class Snake {
     /**
      * Position of each part of the snake in the
      * game / on the canvas.

@@ -176,6 +176,7 @@ class Game {
         // Determine direction by looking up the pressed key.
         switch (key) {
             case 'ArrowUp':
+                // Bail early because snake can't go through itself.
                 if (this.snake.direction === Direction.DOWN
                     && this.snake.parts.length >= 2) break;
                 direction = Direction.UP;
@@ -191,6 +192,7 @@ class Game {
                 break;
 
             case 'ArrowLeft':
+                // Bail early because snake can't go through itself.
                 if (this.snake.direction === Direction.RIGHT
                     && this.snake.parts.length >= 2) break;
                 direction = Direction.LEFT;
@@ -198,6 +200,7 @@ class Game {
                 break;
 
             case 'ArrowRight':
+                // Bail early because snake can't go through itself.
                 if (this.snake.direction === Direction.LEFT
                     && this.snake.parts.length >= 2) break;
                 direction = Direction.RIGHT;
